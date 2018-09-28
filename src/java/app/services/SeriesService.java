@@ -5,6 +5,7 @@
  */
 package app.services;
 
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,6 +16,11 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "SeriesService")
 public class SeriesService {
+    SerieHelper helper;
+
+    public SeriesService() {
+        helper = new SerieHelper();
+    }
 
     /**
      * This is a sample web service operation
@@ -22,5 +28,13 @@ public class SeriesService {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "all")
+    public List<Series> all() {
+        return helper.all();
     }
 }
