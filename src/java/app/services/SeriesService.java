@@ -37,4 +37,22 @@ public class SeriesService {
     public List<Series> all() {
         return helper.all();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "create")
+    public Series create(@WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
+        //TODO write your implementation code here:
+        return helper.create(name, year, rate);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "update")
+    public Series update(@WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
+        //TODO write your implementation code here:
+        return null;
+    }
 }
