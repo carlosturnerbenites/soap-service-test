@@ -18,21 +18,72 @@ public class SerieHelper {
     public List all() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
-        List<Series> filmList = null;
+        List<Series> seriesList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
             Query q = session.createQuery ("from Series");
-            filmList = (List<Series>) q.list();
-            System.out.print(filmList);
+            seriesList = (List<Series>) q.list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-        finally {
-            // HibernateUtil.getSessionFactory().getCurrentSession().close();
+        return seriesList;
+    }
+
+    public Series findById(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
+        Series seriesObject = null;
+        try {
+            org.hibernate.Transaction tx = session.beginTransaction();
+            Query q = session.createQuery ("from Series WHERE id = :id").setParameter("id", id);
+            seriesObject = (Series)q.uniqueResult();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
         }
-        return filmList;
+        return seriesObject;
+    }
+    
+    public Series updateById(int id, String name, int year, double rate) {
+        System.out.print("update by id");
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        
+        //Add new Employee object
+        Query q = session.createQuery ("from Series WHERE id = :id").setParameter("id", id);
+        Series emp = (Series)q.uniqueResult();
+
+        emp.setName(name);
+        emp.setRate(new BigDecimal(rate));
+        emp.setYear(year);
+         
+        //Save the employee in database
+        session.save(emp);
+ 
+        //Commit the transaction
+        session.getTransaction().commit();
+        
+        return emp;
+    }
+    
+    public Series deleteById(int id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        org.hibernate.Transaction tx = session.beginTransaction();
+        
+        //Add new Employee object
+
+        Query q = session.createQuery ("from Series WHERE id = :id").setParameter("id", id);
+        Series emp = (Series)q.uniqueResult();
+        
+        session.delete(emp);
+ 
+        //Commit the transaction
+        session.getTransaction().commit();
+        
+        return emp;
     }
     
     public Series create(String name, int year, double rate) {

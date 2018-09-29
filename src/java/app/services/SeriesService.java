@@ -47,12 +47,30 @@ public class SeriesService {
         return helper.create(name, year, rate);
     }
 
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "findById")
+    public Series findById(@WebParam(name = "id") int id) {
+        //TODO write your implementation code here:
+        return helper.findById(id);
+    }
+    
     /**
      * Web service operation
      */
     @WebMethod(operationName = "update")
-    public Series update(@WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
-        //TODO write your implementation code here:
-        return null;
+    public Series update(@WebParam(name = "id") int id, @WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
+        return helper.updateById(id, name, year, rate);
+    }
+    
+    
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "delete")
+    public Series delete(@WebParam(name = "id") int id) {
+        return helper.deleteById(id);
     }
 }
