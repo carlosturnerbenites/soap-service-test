@@ -48,7 +48,6 @@ public class SerieHelper {
     }
     
     public Series updateById(int id, String name, int year, double rate) {
-        System.out.print("update by id");
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         
