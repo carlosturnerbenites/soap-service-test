@@ -15,21 +15,16 @@ import org.hibernate.Session;
  * @author kohaku
  */
 public class SerieHelper {
-
-    Session session = null;
-
-    public SerieHelper() {
-        this.session = HibernateUtil.getSessionFactory().getCurrentSession();
-    }
-
     public List all() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+
         List<Series> filmList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
             Query q = session.createQuery ("from Series");
             filmList = (List<Series>) q.list();
             System.out.print(filmList);
-            // session.getTransaction().commit();
+            session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -41,6 +36,7 @@ public class SerieHelper {
     }
     
     public Series create(String name, int year, double rate) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         
         //Add new Employee object
