@@ -23,14 +23,6 @@ public class SeriesService {
     }
 
     /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
-
-    /**
      * Web service operation
      */
     @WebMethod(operationName = "all")
@@ -42,9 +34,10 @@ public class SeriesService {
      * Web service operation
      */
     @WebMethod(operationName = "create")
-    public Series create(@WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
+    public Series create(@WebParam(name = "name") String name, @WebParam(name = "rate") int rate, @WebParam(name = "episodes") int episodes, @WebParam(name = "malLink") String malLink, @WebParam(name = "malImg") String malImg) {
         //TODO write your implementation code here:
-        return helper.create(name, year, rate);
+        
+        return helper.create(name, rate, episodes, malLink, malImg);
     }
 
     
@@ -61,8 +54,8 @@ public class SeriesService {
      * Web service operation
      */
     @WebMethod(operationName = "update")
-    public Series update(@WebParam(name = "id") int id, @WebParam(name = "name") String name, @WebParam(name = "year") int year, @WebParam(name = "rate") double rate) {
-        return helper.updateById(id, name, year, rate);
+    public Series update(@WebParam(name = "id") int id, @WebParam(name = "name") String name, @WebParam(name = "rate") int rate, @WebParam(name = "episodes") int episodes, @WebParam(name = "malLink") String malLink, @WebParam(name = "malImg") String malImg) {
+        return helper.updateById(id, name, rate, episodes, malLink, malImg);
     }
     
     

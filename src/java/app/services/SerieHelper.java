@@ -47,22 +47,21 @@ public class SerieHelper {
         return seriesObject;
     }
     
-    public Series updateById(int id, String name, int year, double rate) {
+    public Series updateById(int id, String name, int rate, int episodes, String malLink, String malImg) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         
-        //Add new Employee object
         Query q = session.createQuery ("from Series WHERE id = :id").setParameter("id", id);
         Series emp = (Series)q.uniqueResult();
 
         emp.setName(name);
-        emp.setRate(new BigDecimal(rate));
-        emp.setYear(year);
-         
-        //Save the employee in database
+        emp.setRate(rate);
+        emp.setEpisodes(episodes);
+        emp.setMalLink(malLink);
+        emp.setMalImg(malImg);
+
         session.save(emp);
  
-        //Commit the transaction
         session.getTransaction().commit();
         
         return emp;
@@ -85,15 +84,17 @@ public class SerieHelper {
         return emp;
     }
     
-    public Series create(String name, int year, double rate) {
+    public Series create(String name, int rate, int episodes, String malLink, String malImg) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         org.hibernate.Transaction tx = session.beginTransaction();
         
         //Add new Employee object
         Series emp = new Series();
         emp.setName(name);
-        emp.setRate(new BigDecimal(rate));
-        emp.setYear(year);
+        emp.setRate(rate);
+        emp.setEpisodes(episodes);
+        emp.setMalLink(malLink);
+        emp.setMalImg(malImg);
          
         //Save the employee in database
         session.save(emp);
