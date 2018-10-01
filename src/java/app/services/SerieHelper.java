@@ -15,13 +15,14 @@ import org.hibernate.Session;
  * @author kohaku
  */
 public class SerieHelper {
-    public List all() {
+    public List all(String fieldSort, String dirSort) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 
         List<Series> seriesList = null;
         try {
             org.hibernate.Transaction tx = session.beginTransaction();
-            Query q = session.createQuery ("from Series");
+            Query q = session.createQuery ("from Series order by " + fieldSort + " " + dirSort); // .setParameter("fieldSort", fieldSort).setParameter("dirSort", dirSort);
+            System.out.print(q);
             seriesList = (List<Series>) q.list();
             session.getTransaction().commit();
         } catch (Exception e) {

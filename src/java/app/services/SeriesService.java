@@ -26,8 +26,8 @@ public class SeriesService {
      * Web service operation
      */
     @WebMethod(operationName = "all")
-    public List<Series> all() {
-        return helper.all();
+    public List<Series> all(@WebParam(name = "fieldSort") String fieldSort, @WebParam(name = "dirSort") String dirSort) {
+        return helper.all(fieldSort, dirSort);
     }
 
     /**
